@@ -6,6 +6,14 @@ A CLI that surfaces churn hotspots, bus factor, bug clusters, velocity trends, a
 
 ## Install
 
+**From GitHub (no clone needed):**
+
+```bash
+pnpm add --global hakhag/git-audit
+```
+
+**From a local clone:**
+
 ```bash
 pnpm add --global .
 ```
