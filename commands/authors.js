@@ -1,61 +1,70 @@
-import chalk from 'chalk';
-import { git, header, makeTable, warn, info } from '../lib/git.js';
+import chalk from 'chalk'
+import { git, header, makeTable, warn, info } from '../lib/git.js'
 
 export function authors({ since } = {}) {
-  const sinceFlag = since ? `--since="${since}"` : '';
-  const label = since ? `since "${since}"` : 'all time';
-  header('AUTHORS & BUS FACTOR', `Contributor ranking — ${label}`);
+  const sinceFlag = since ? `--since="${since}"` : ''
+  const label = since ? `since "${since}"` : 'all time'
+  header('AUTHORS & BUS FACTOR', `Contributor ranking — ${label}`)
 
-  const raw = git(`shortlog -sn --no-merges ${sinceFlag}`);
+  const raw = git(`shortlog -sn --no-merges ${sinceFlag}`)
   if (!raw) {
-    console.log(chalk.dim('  No commits found.\n'));
-    return;
+    console.log(chalk.dim('  No commits found.\n'))
+    return
   }
 
-  const lines = raw.split('\n').filter(Boolean);
-  const entries = lines.map(line => {
-    const m = line.trim().match(/^(\d+)\s+(.+)$/);
-    return m ? { count: parseInt(m[1]), author: m[2] } : null;
-  }).filter(Boolean);
+  const lines = raw.split('\n').filter(Boolean)
+  const entries = lines
+    .map((line) => {
+      const m = line.trim().match(/^(\d+)\s+(.+)$/)
+      return m ? { count: parseInt(m[1]), author: m[2] } : null
+    })
+    .filter(Boolean)
 
-  const total = entries.reduce((s, e) => s + e.count, 0);
+  const total = entries.reduce((s, e) => s + e.count, 0)
 
-  const table = makeTable(['Commits', '%', 'Author'], [10, 8, 44]);
+  const table = makeTable(['Commits', '%', 'Author'], [10, 8, 44])
   entries.forEach((e, i) => {
-    const pct = ((e.count / total) * 100).toFixed(1);
-    const color = i === 0 ? chalk.cyan.bold : chalk.white;
-    table.push([color(String(e.count)), color(`${pct}%`), color(e.author)]);
-  });
-  console.log(table.toString());
+    const pct = ((e.count / total) * 100).toFixed(1)
+    const color = i === 0 ? chalk.cyan.bold : chalk.white
+    table.push([color(String(e.count)), color(`${pct}%`), color(e.author)])
+  })
+  console.log(table.toString())
 
   // Bus factor warning
   if (entries.length > 0) {
-    const top = entries[0];
-    const topPct = (top.count / total) * 100;
-    console.log();
+    const top = entries[0]
+    const topPct = (top.count / total) * 100
+    console.log()
     if (topPct >= 60) {
-      warn(`Bus factor risk: ${top.author} owns ${topPct.toFixed(0)}% of commits.`);
+      warn(
+        `Bus factor risk: ${top.author} owns ${topPct.toFixed(0)}% of commits.`,
+      )
     } else if (entries.length === 1) {
-      warn(`Only 1 contributor — single point of failure.`);
+      warn(`Only 1 contributor — single point of failure.`)
     } else {
-      info(`Top contributor: ${top.author} (${topPct.toFixed(0)}% of commits)`);
+      info(`Top contributor: ${top.author} (${topPct.toFixed(0)}% of commits)`)
     }
 
     // Active vs historical
     if (!since) {
-      const recent = git(`shortlog -sn --no-merges --since="6 months ago"`);
+      const recent = git(`shortlog -sn --no-merges --since="6 months ago"`)
       const recentAuthors = new Set(
-        recent.split('\n').filter(Boolean).map(l => l.trim().replace(/^\d+\s+/, ''))
-      );
+        recent
+          .split('\n')
+          .filter(Boolean)
+          .map((l) => l.trim().replace(/^\d+\s+/, '')),
+      )
       const inactive = entries
         .slice(0, 5)
-        .filter(e => !recentAuthors.has(e.author))
-        .map(e => e.author);
+        .filter((e) => !recentAuthors.has(e.author))
+        .map((e) => e.author)
 
       if (inactive.length) {
-        warn(`Top contributors inactive in last 6 months: ${inactive.join(', ')}`);
+        warn(
+          `Top contributors inactive in last 6 months: ${inactive.join(', ')}`,
+        )
       }
     }
   }
-  console.log();
+  console.log()
 }

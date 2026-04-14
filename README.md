@@ -18,19 +18,19 @@ git-audit
 
 ## Commands
 
-| Command | What it tells you |
-|---|---|
-| `churn` | Top most-changed files — the ones people warn you about |
-| `authors` | Contributor ranking + bus factor warnings |
-| `bugs` | Files most touched in fix/bug commits |
-| `velocity` | Monthly commit bar chart — is the team accelerating or dying? |
-| `fires` | Revert / hotfix / emergency commit frequency |
-| `age` | Files not touched in 1+ year — dead or forgotten code |
-| `ownership` | Per-file blame ownership of top churned files |
-| `coupling` | Files that always change together — hidden dependencies |
-| `branches` | Stale remote branches with no recent activity |
-| `first-week` | Commits from the first two weeks — original project intent |
-| `all` | Run everything |
+| Command      | What it tells you                                             |
+| ------------ | ------------------------------------------------------------- |
+| `churn`      | Top most-changed files — the ones people warn you about       |
+| `authors`    | Contributor ranking + bus factor warnings                     |
+| `bugs`       | Files most touched in fix/bug commits                         |
+| `velocity`   | Monthly commit bar chart — is the team accelerating or dying? |
+| `fires`      | Revert / hotfix / emergency commit frequency                  |
+| `age`        | Files not touched in 1+ year — dead or forgotten code         |
+| `ownership`  | Per-file blame ownership of top churned files                 |
+| `coupling`   | Files that always change together — hidden dependencies       |
+| `branches`   | Stale remote branches with no recent activity                 |
+| `first-week` | Commits from the first two weeks — original project intent    |
+| `all`        | Run everything                                                |
 
 ## Options
 
