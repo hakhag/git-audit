@@ -1,0 +1,14 @@
+{
+  "name": "git-audit",
+  "version": "1.0.0",
+  "description": "CLI for diagnosing a git repo before reading any code",
+  "bin": {
+    "git-audit": "./bin/git-audit.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "cli-table3": "^0.6.5"
+  }
+}
