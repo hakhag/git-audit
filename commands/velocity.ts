@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import { git, header, warn, info } from '../lib/git.js'
 
-export function velocity() {
+export function velocity(): void {
   header('COMMIT VELOCITY', 'Monthly commit count — full project history')
 
   const raw = git(`log --format='%ad' --date=format:'%Y-%m'`)
@@ -10,7 +10,7 @@ export function velocity() {
     return
   }
 
-  const counts = {}
+  const counts: Record<string, number> = {}
   for (const line of raw.split('\n')) {
     const m = line.trim().replace(/'/g, '')
     if (m) counts[m] = (counts[m] || 0) + 1
@@ -28,9 +28,8 @@ export function velocity() {
     const bar = '█'.repeat(filled) + chalk.dim('░'.repeat(barWidth - filled))
     const label = String(count).padStart(5)
 
-    // Color by intensity
-    let barColor
     const pct = count / maxCount
+    let barColor
     if (pct > 0.75) barColor = chalk.green
     else if (pct > 0.4) barColor = chalk.cyan
     else if (pct > 0.15) barColor = chalk.yellow
@@ -41,7 +40,6 @@ export function velocity() {
     )
   }
 
-  // Trend analysis
   if (months.length >= 3) {
     const recent = months.slice(-3).map(([, c]) => c)
     const older = months.slice(-6, -3).map(([, c]) => c)

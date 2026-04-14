@@ -10,10 +10,21 @@ A CLI that surfaces churn hotspots, bus factor, bug clusters, velocity trends, a
 npm install -g .
 ```
 
+This compiles the TypeScript source to `dist/` automatically (via the `prepare` script) before linking the binary.
+
 Then run from any git repo:
 
 ```bash
 git-audit
+```
+
+## Development
+
+After editing any `.ts` file, rebuild before the changes take effect:
+
+```bash
+npm run build        # compile once
+npm install -g .     # rebuild + reinstall globally
 ```
 
 ## Commands

@@ -1,7 +1,12 @@
 import chalk from 'chalk'
 import { git, header, makeTable, info, isExcluded } from '../lib/git.js'
 
-export function bugs({ since = '1 year ago', top = 20 } = {}) {
+interface BugsOptions {
+  since?: string
+  top?: number
+}
+
+export function bugs({ since = '1 year ago', top = 20 }: BugsOptions = {}): void {
   header(
     'BUG HOTSPOTS',
     `Files most mentioned in fix/bug commits since "${since}"`,
@@ -20,7 +25,7 @@ export function bugs({ since = '1 year ago', top = 20 } = {}) {
     return
   }
 
-  const counts = {}
+  const counts: Record<string, number> = {}
   for (const line of raw.split('\n')) {
     const f = line.trim()
     if (f && !isExcluded(f)) counts[f] = (counts[f] || 0) + 1

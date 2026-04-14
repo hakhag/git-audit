@@ -39,7 +39,7 @@ program
 // ── churn ──────────────────────────────────────────────────────────────────
 program
   .command('churn')
-  .description(COMMANDS.find((c) => c.name === 'churn').desc)
+  .description(COMMANDS.find((c) => c.name === 'churn')!.desc)
   .option('--since <date>', 'Lookback window', '1 year ago')
   .option('--top <n>', 'Number of files', '20')
   .action((opts) => {
@@ -50,7 +50,7 @@ program
 // ── authors ────────────────────────────────────────────────────────────────
 program
   .command('authors')
-  .description(COMMANDS.find((c) => c.name === 'authors').desc)
+  .description(COMMANDS.find((c) => c.name === 'authors')!.desc)
   .option('--since <date>', 'Limit to commits since date')
   .action((opts) => {
     assertGitRepo()
@@ -60,7 +60,7 @@ program
 // ── bugs ───────────────────────────────────────────────────────────────────
 program
   .command('bugs')
-  .description(COMMANDS.find((c) => c.name === 'bugs').desc)
+  .description(COMMANDS.find((c) => c.name === 'bugs')!.desc)
   .option('--since <date>', 'Lookback window', '1 year ago')
   .option('--top <n>', 'Number of files', '20')
   .action((opts) => {
@@ -71,7 +71,7 @@ program
 // ── velocity ───────────────────────────────────────────────────────────────
 program
   .command('velocity')
-  .description(COMMANDS.find((c) => c.name === 'velocity').desc)
+  .description(COMMANDS.find((c) => c.name === 'velocity')!.desc)
   .action(() => {
     assertGitRepo()
     velocity()
@@ -80,7 +80,7 @@ program
 // ── fires ──────────────────────────────────────────────────────────────────
 program
   .command('fires')
-  .description(COMMANDS.find((c) => c.name === 'fires').desc)
+  .description(COMMANDS.find((c) => c.name === 'fires')!.desc)
   .option('--since <date>', 'Lookback window', '1 year ago')
   .action((opts) => {
     assertGitRepo()
@@ -90,7 +90,7 @@ program
 // ── age ────────────────────────────────────────────────────────────────────
 program
   .command('age')
-  .description(COMMANDS.find((c) => c.name === 'age').desc)
+  .description(COMMANDS.find((c) => c.name === 'age')!.desc)
   .option('--top <n>', 'Number of files', '20')
   .action((opts) => {
     assertGitRepo()
@@ -100,7 +100,7 @@ program
 // ── ownership ──────────────────────────────────────────────────────────────
 program
   .command('ownership')
-  .description(COMMANDS.find((c) => c.name === 'ownership').desc)
+  .description(COMMANDS.find((c) => c.name === 'ownership')!.desc)
   .option('--top <n>', 'Number of files', '15')
   .action((opts) => {
     assertGitRepo()
@@ -110,7 +110,7 @@ program
 // ── coupling ───────────────────────────────────────────────────────────────
 program
   .command('coupling')
-  .description(COMMANDS.find((c) => c.name === 'coupling').desc)
+  .description(COMMANDS.find((c) => c.name === 'coupling')!.desc)
   .option('--since <date>', 'Lookback window', '1 year ago')
   .option('--top <n>', 'Number of pairs', '15')
   .option('--min-count <n>', 'Min co-change count', '3')
@@ -126,7 +126,7 @@ program
 // ── branches ───────────────────────────────────────────────────────────────
 program
   .command('branches')
-  .description(COMMANDS.find((c) => c.name === 'branches').desc)
+  .description(COMMANDS.find((c) => c.name === 'branches')!.desc)
   .action(() => {
     assertGitRepo()
     branches()
@@ -135,7 +135,7 @@ program
 // ── first-week ─────────────────────────────────────────────────────────────
 program
   .command('first-week')
-  .description(COMMANDS.find((c) => c.name === 'first-week').desc)
+  .description(COMMANDS.find((c) => c.name === 'first-week')!.desc)
   .action(() => {
     assertGitRepo()
     firstWeek()
@@ -154,7 +154,7 @@ program
   .action((opts) => {
     assertGitRepo()
     const t = parseInt(opts.top)
-    const s = opts.since
+    const s: string = opts.since
     console.log(chalk.bold.cyan('\n  ╔══════════════════════════════════╗'))
     console.log(chalk.bold.cyan('  ║       git-audit — full report    ║'))
     console.log(chalk.bold.cyan('  ╚══════════════════════════════════╝'))

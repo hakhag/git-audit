@@ -1,11 +1,17 @@
 import chalk from 'chalk'
 import { git, header, makeTable, info, isExcluded } from '../lib/git.js'
 
+interface CouplingOptions {
+  since?: string
+  top?: number
+  minCount?: number
+}
+
 export function coupling({
   since = '1 year ago',
   top = 15,
   minCount = 3,
-} = {}) {
+}: CouplingOptions = {}): void {
   header(
     'CHANGE COUPLING',
     `Files that frequently change together since "${since}"`,
@@ -13,16 +19,14 @@ export function coupling({
   info(`Reveals hidden dependencies — files that should maybe be one module.`)
   console.log()
 
-  // Get all commits and their changed files
   const raw = git(`log --format='COMMIT:%H' --name-only --since="${since}"`)
   if (!raw) {
     console.log(chalk.dim('  No data.\n'))
     return
   }
 
-  // Parse commits
-  const commits = []
-  let current = []
+  const commits: string[][] = []
+  let current: string[] = []
   for (const line of raw.split('\n')) {
     const l = line.trim().replace(/'/g, '')
     if (l.startsWith('COMMIT:')) {
@@ -34,8 +38,7 @@ export function coupling({
   }
   if (current.length > 1) commits.push(current)
 
-  // Count co-occurrences
-  const pairs = {}
+  const pairs: Record<string, number> = {}
   for (const files of commits) {
     for (let i = 0; i < files.length; i++) {
       for (let j = i + 1; j < files.length; j++) {

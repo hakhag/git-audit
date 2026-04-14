@@ -1,15 +1,25 @@
 import chalk from 'chalk'
 import { git, header, makeTable, info, warn, isExcluded } from '../lib/git.js'
 
-export function age({ threshold = '1 year ago', top = 20 } = {}) {
+interface AgeOptions {
+  threshold?: string
+  top?: number
+}
+
+interface StaleFile {
+  file: string
+  lastTouch: string
+  daysAgo: number
+}
+
+export function age({ threshold = '1 year ago', top = 20 }: AgeOptions = {}): void {
   header('STALE FILES', `Files not modified since "${threshold}"`)
 
-  // Get all tracked files
   const allFiles = git('ls-files')
     .split('\n')
     .filter((f) => f && !isExcluded(f))
 
-  const results = []
+  const results: StaleFile[] = []
   for (const file of allFiles) {
     const lastTouch = git(`log -1 --format="%ad" --date=short -- "${file}"`)
     if (!lastTouch) continue
@@ -19,7 +29,7 @@ export function age({ threshold = '1 year ago', top = 20 } = {}) {
       results.push({
         file,
         lastTouch,
-        daysAgo: Math.floor((Date.now() - lastDate) / (1000 * 60 * 60 * 24)),
+        daysAgo: Math.floor((Date.now() - lastDate.getTime()) / (1000 * 60 * 60 * 24)),
       })
     }
   }

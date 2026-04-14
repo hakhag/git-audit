@@ -1,7 +1,7 @@
 import chalk from 'chalk'
-import { git, header, makeTable, info } from '../lib/git.js'
+import { git, header, info } from '../lib/git.js'
 
-export function firstWeek() {
+export function firstWeek(): void {
   header('ORIGIN STORY', 'Commits from the first two weeks of the project')
 
   const firstCommit = git(
@@ -12,7 +12,6 @@ export function firstWeek() {
     return
   }
 
-  // Get date 14 days after first commit
   const start = new Date(firstCommit)
   const end = new Date(start.getTime() + 14 * 24 * 60 * 60 * 1000)
   const endStr = end.toISOString().split('T')[0]
@@ -21,7 +20,6 @@ export function firstWeek() {
     `log --reverse --format="%ad %s" --date=format:"%Y-%m-%d" --after="${firstCommit}" --before="${endStr}"`,
   )
 
-  // Also get the very first commit
   const firstFull = git(
     `log --reverse --format="%ad %an: %s" --date=format:"%Y-%m-%d" | head -1`,
   )

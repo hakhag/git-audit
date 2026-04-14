@@ -1,12 +1,15 @@
 import chalk from 'chalk'
-import { git, header, makeTable, warn, info, isExcluded } from '../lib/git.js'
+import { git, header, makeTable, info, isExcluded } from '../lib/git.js'
 
-export function ownership({ top = 15 } = {}) {
+interface OwnershipOptions {
+  top?: number
+}
+
+export function ownership({ top = 15 }: OwnershipOptions = {}): void {
   header('FILE OWNERSHIP', 'Who owns the most lines in the busiest files')
 
-  // Get top churned files to focus on
   const churnRaw = git(`log --format=format: --name-only --since="1 year ago"`)
-  const churnCounts = {}
+  const churnCounts: Record<string, number> = {}
   for (const line of churnRaw.split('\n')) {
     const f = line.trim()
     if (f && !isExcluded(f)) churnCounts[f] = (churnCounts[f] || 0) + 1
@@ -31,7 +34,7 @@ export function ownership({ top = 15 } = {}) {
     const blame = git(`blame --line-porcelain "${file}" 2>/dev/null`)
     if (!blame) continue
 
-    const authorLines = {}
+    const authorLines: Record<string, number> = {}
     for (const line of blame.split('\n')) {
       if (line.startsWith('author ')) {
         const author = line.replace('author ', '').trim()
@@ -53,7 +56,6 @@ export function ownership({ top = 15 } = {}) {
         : parseInt(pct) > 60
           ? chalk.yellow
           : chalk.green
-    // Truncate author name to fit
     const shortAuthor =
       topAuthor.length > 18 ? topAuthor.slice(0, 16) + '..' : topAuthor
     const shortFile = file.length > 23 ? '…' + file.slice(-22) : file

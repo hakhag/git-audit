@@ -1,7 +1,19 @@
 import chalk from 'chalk'
 import { git, header, makeTable, info, warn } from '../lib/git.js'
 
-export function branches({ threshold = '3 months ago' } = {}) {
+interface BranchesOptions {
+  threshold?: string
+}
+
+interface StaleBranch {
+  branch: string
+  date: string
+  daysAgo: number
+  author: string
+  subject: string
+}
+
+export function branches({ threshold = '3 months ago' }: BranchesOptions = {}): void {
   header(
     'STALE BRANCHES',
     `Remote branches with no activity since "${threshold}"`,
@@ -19,7 +31,7 @@ export function branches({ threshold = '3 months ago' } = {}) {
     .filter((l) => l && !l.includes('HEAD ->') && !l.includes('->'))
 
   const cutoff = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000)
-  const stale = []
+  const stale: StaleBranch[] = []
 
   for (const branch of remoteBranches) {
     const date = git(`log -1 --format="%ad" --date=short ${branch} 2>/dev/null`)
@@ -28,7 +40,7 @@ export function branches({ threshold = '3 months ago' } = {}) {
     if (d < cutoff) {
       const author = git(`log -1 --format="%an" ${branch} 2>/dev/null`)
       const subject = git(`log -1 --format="%s" ${branch} 2>/dev/null`)
-      const daysAgo = Math.floor((Date.now() - d) / (1000 * 60 * 60 * 24))
+      const daysAgo = Math.floor((Date.now() - d.getTime()) / (1000 * 60 * 60 * 24))
       stale.push({
         branch: branch.replace('origin/', ''),
         date,

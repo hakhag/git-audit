@@ -1,20 +1,22 @@
 import { execSync } from 'child_process'
-import chalk from 'chalk'
+import chalk, { type ChalkInstance } from 'chalk'
 import Table from 'cli-table3'
 
-export function git(cmd, opts = {}) {
+export function git(cmd: string, opts: object = {}): string {
   try {
-    return execSync(`git ${cmd}`, {
-      encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-      ...opts,
-    }).trim()
-  } catch (e) {
+    return (
+      execSync(`git ${cmd}`, {
+        encoding: 'utf8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+        ...opts,
+      }) as string
+    ).trim()
+  } catch {
     return ''
   }
 }
 
-export function assertGitRepo() {
+export function assertGitRepo(): void {
   const result = git('rev-parse --is-inside-work-tree')
   if (result !== 'true') {
     console.error(chalk.red('✖ Not inside a git repository.'))
@@ -22,7 +24,7 @@ export function assertGitRepo() {
   }
 }
 
-export function header(title, subtitle) {
+export function header(title: string, subtitle?: string): void {
   const width = 60
   const line = '─'.repeat(width)
   console.log()
@@ -42,7 +44,7 @@ export function header(title, subtitle) {
   console.log(chalk.bold.cyan(`└${line}┘`))
 }
 
-export function makeTable(head, colWidths) {
+export function makeTable(head: string[], colWidths: number[]) {
   return new Table({
     head: head.map((h) => chalk.bold.yellow(h)),
     colWidths,
@@ -67,26 +69,26 @@ export function makeTable(head, colWidths) {
   })
 }
 
-export function warn(msg) {
+export function warn(msg: string): void {
   console.log(chalk.bold.red('  ⚠  ') + chalk.yellow(msg))
 }
 
-export function info(msg) {
+export function info(msg: string): void {
   console.log(chalk.dim('  →  ') + msg)
 }
 
-export const DEFAULT_EXCLUDES = new Set([
+export const DEFAULT_EXCLUDES = new Set<string>([
   'yarn.lock',
   'package-lock.json',
   'package.json',
 ])
 
-export function isExcluded(file) {
-  const base = file.split('/').pop()
+export function isExcluded(file: string): boolean {
+  const base = file.split('/').pop() ?? file
   return DEFAULT_EXCLUDES.has(base)
 }
 
-export function heatColor(rank, total) {
+export function heatColor(rank: number, total: number): ChalkInstance {
   const pct = rank / total
   if (pct < 0.15) return chalk.red.bold
   if (pct < 0.35) return chalk.yellow

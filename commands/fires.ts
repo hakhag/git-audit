@@ -1,7 +1,11 @@
 import chalk from 'chalk'
 import { git, header, warn, info } from '../lib/git.js'
 
-export function fires({ since = '1 year ago' } = {}) {
+interface FiresOptions {
+  since?: string
+}
+
+export function fires({ since = '1 year ago' }: FiresOptions = {}): void {
   header(
     'FIREFIGHTING FREQUENCY',
     `Reverts, hotfixes, and emergencies since "${since}"`,
@@ -28,8 +32,7 @@ export function fires({ since = '1 year ago' } = {}) {
     return
   }
 
-  // Group by month
-  const byMonth = {}
+  const byMonth: Record<string, number> = {}
   for (const hash of matches.map((l) => l.split(' ')[0])) {
     const month = git(
       `log -1 --format='%ad' --date=format:'%Y-%m' ${hash}`,

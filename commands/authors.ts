@@ -1,7 +1,16 @@
 import chalk from 'chalk'
 import { git, header, makeTable, warn, info } from '../lib/git.js'
 
-export function authors({ since } = {}) {
+interface AuthorsOptions {
+  since?: string
+}
+
+interface AuthorEntry {
+  count: number
+  author: string
+}
+
+export function authors({ since }: AuthorsOptions = {}): void {
   const sinceFlag = since ? `--since="${since}"` : ''
   const label = since ? `since "${since}"` : 'all time'
   header('AUTHORS & BUS FACTOR', `Contributor ranking — ${label}`)
@@ -13,12 +22,12 @@ export function authors({ since } = {}) {
   }
 
   const lines = raw.split('\n').filter(Boolean)
-  const entries = lines
+  const entries: AuthorEntry[] = lines
     .map((line) => {
       const m = line.trim().match(/^(\d+)\s+(.+)$/)
-      return m ? { count: parseInt(m[1]), author: m[2] } : null
+      return m ? { count: parseInt(m[1], 10), author: m[2] } : null
     })
-    .filter(Boolean)
+    .filter((e): e is AuthorEntry => e !== null)
 
   const total = entries.reduce((s, e) => s + e.count, 0)
 
@@ -30,7 +39,6 @@ export function authors({ since } = {}) {
   })
   console.log(table.toString())
 
-  // Bus factor warning
   if (entries.length > 0) {
     const top = entries[0]
     const topPct = (top.count / total) * 100
@@ -45,7 +53,6 @@ export function authors({ since } = {}) {
       info(`Top contributor: ${top.author} (${topPct.toFixed(0)}% of commits)`)
     }
 
-    // Active vs historical
     if (!since) {
       const recent = git(`shortlog -sn --no-merges --since="6 months ago"`)
       const recentAuthors = new Set(
