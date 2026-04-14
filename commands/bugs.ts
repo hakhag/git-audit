@@ -7,14 +7,17 @@ interface BugsOptions {
   top?: number
 }
 
-export function bugs({ since = '1 year ago', top = 20 }: BugsOptions = {}): void {
+export function bugs({
+  since = '1 year ago',
+  top = 20,
+}: BugsOptions = {}): void {
   header(
     'BUG HOTSPOTS',
     `Files most mentioned in fix/bug commits since "${since}"`,
   )
 
   const raw = git(
-    `log -i -E --grep="fix|bug|broken|crash|error|regression" --name-only --format='' --since="${since}"`,
+    `log -i -E --grep="fix|bug|broken|crash|error|regression|🐛" --name-only --format='' --since="${since}"`,
   )
 
   if (!raw) {
