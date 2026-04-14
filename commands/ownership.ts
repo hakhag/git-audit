@@ -27,7 +27,7 @@ export function ownership({ top = 15 }: OwnershipOptions = {}): void {
 
   const table = makeTable(
     ['Top Owner', 'Own%', 'Contributors', 'File'],
-    [22, 7, 14, 25],
+    [22, 7, 14, 50],
   )
 
   for (const file of topFiles) {
@@ -58,7 +58,7 @@ export function ownership({ top = 15 }: OwnershipOptions = {}): void {
           : chalk.green
     const shortAuthor =
       topAuthor.length > 18 ? topAuthor.slice(0, 16) + '..' : topAuthor
-    const shortFile = file.length > 23 ? '…' + file.slice(-22) : file
+    const shortFile = file.length > 48 ? '…' + file.slice(-47) : file
 
     table.push([
       color(shortAuthor),
