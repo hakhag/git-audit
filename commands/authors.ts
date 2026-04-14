@@ -15,7 +15,7 @@ export function authors({ since }: AuthorsOptions = {}): void {
   const label = since ? `since "${since}"` : 'all time'
   header('AUTHORS & BUS FACTOR', `Contributor ranking — ${label}`)
 
-  const raw = git(`shortlog -sn --no-merges ${sinceFlag}`)
+  const raw = git(`shortlog -sn --no-merges ${sinceFlag} HEAD`)
   if (!raw) {
     console.log(chalk.dim('  No commits found.\n'))
     return
@@ -54,7 +54,7 @@ export function authors({ since }: AuthorsOptions = {}): void {
     }
 
     if (!since) {
-      const recent = git(`shortlog -sn --no-merges --since="6 months ago"`)
+      const recent = git(`shortlog -sn --no-merges --since="6 months ago" HEAD`)
       const recentAuthors = new Set(
         recent
           .split('\n')
