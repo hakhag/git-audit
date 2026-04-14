@@ -3,18 +3,20 @@ import { program } from 'commander'
 import chalk from 'chalk'
 import { assertGitRepo } from '../lib/git.js'
 
-import { churn } from '../commands/churn.js'
-import { authors } from '../commands/authors.js'
-import { bugs } from '../commands/bugs.js'
-import { velocity } from '../commands/velocity.js'
-import { fires } from '../commands/fires.js'
-import { age } from '../commands/age.js'
-import { ownership } from '../commands/ownership.js'
-import { coupling } from '../commands/coupling.js'
-import { branches } from '../commands/branches.js'
-import { firstWeek } from '../commands/first-week.js'
-import { hot } from '../commands/hot.js'
-import { wip } from '../commands/wip.js'
+import {
+  churn,
+  authors,
+  bugs,
+  velocity,
+  fires,
+  age,
+  ownership,
+  coupling,
+  branches,
+  firstWeek,
+  hot,
+  wip,
+} from '../commands/index.js'
 
 const COMMANDS = [
   { name: 'churn', desc: 'Top most-changed files' },
