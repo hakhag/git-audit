@@ -13,6 +13,8 @@ import { ownership } from '../commands/ownership.js'
 import { coupling } from '../commands/coupling.js'
 import { branches } from '../commands/branches.js'
 import { firstWeek } from '../commands/first-week.js'
+import { hot } from '../commands/hot.js'
+import { wip } from '../commands/wip.js'
 
 const COMMANDS = [
   { name: 'churn', desc: 'Top most-changed files' },
@@ -28,6 +30,8 @@ const COMMANDS = [
     name: 'first-week',
     desc: 'Commits from the first two weeks of the project',
   },
+  { name: 'hot', desc: 'Files actively changing in the last 2 weeks' },
+  { name: 'wip', desc: 'WIP / hack / temp commits that made it to main' },
   { name: 'all', desc: 'Run everything' },
 ]
 
@@ -141,6 +145,27 @@ program
     firstWeek()
   })
 
+// ── hot ────────────────────────────────────────────────────────────────────
+program
+  .command('hot')
+  .description(COMMANDS.find((c) => c.name === 'hot')!.desc)
+  .option('--since <date>', 'Lookback window', '2 weeks ago')
+  .option('--top <n>', 'Number of files', '20')
+  .action((opts) => {
+    assertGitRepo()
+    hot({ since: opts.since, top: parseInt(opts.top) })
+  })
+
+// ── wip ────────────────────────────────────────────────────────────────────
+program
+  .command('wip')
+  .description(COMMANDS.find((c) => c.name === 'wip')!.desc)
+  .option('--since <date>', 'Lookback window', '1 year ago')
+  .action((opts) => {
+    assertGitRepo()
+    wip({ since: opts.since })
+  })
+
 // ── all ────────────────────────────────────────────────────────────────────
 program
   .command('all')
@@ -168,6 +193,8 @@ program
     coupling({ since: s, top: t })
     branches()
     firstWeek()
+    hot({ since: s, top: t })
+    wip({ since: s })
   })
 
 // ── default: show help menu ────────────────────────────────────────────────
