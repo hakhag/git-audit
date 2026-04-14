@@ -7,8 +7,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "prepare": "tsc"
+    "build": "tsc"
   },
   "dependencies": {
     "chalk": "^5.3.0",

@@ -10,8 +10,6 @@ A CLI that surfaces churn hotspots, bus factor, bug clusters, velocity trends, a
 pnpm add --global .
 ```
 
-This compiles the TypeScript source to `dist/` automatically (via the `prepare` script) before linking the binary.
-
 Then run from any git repo:
 
 ```bash
