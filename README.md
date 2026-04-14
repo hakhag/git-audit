@@ -64,6 +64,10 @@ git-audit authors --since "3 months ago"
 git-audit coupling --min-count 5
 ```
 
+## Privacy
+
+This tool runs entirely on your local machine. It only executes `git` commands, parses their output, and prints results to your terminal. No data leaves your machine — no AI, no network calls, no telemetry. Safe to use on proprietary or confidential codebases.
+
 ## Credits
 
 Inspired by [The Git Commands I Run Before Reading Any Code](https://piechowski.io/post/git-commands-before-reading-code/) by Ally Piechowski.
