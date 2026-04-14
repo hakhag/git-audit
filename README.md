@@ -7,7 +7,7 @@ A CLI that surfaces churn hotspots, bus factor, bug clusters, velocity trends, a
 ## Install
 
 ```bash
-npm install -g .
+pnpm add --global .
 ```
 
 This compiles the TypeScript source to `dist/` automatically (via the `prepare` script) before linking the binary.
@@ -23,8 +23,8 @@ git-audit
 After editing any `.ts` file, rebuild before the changes take effect:
 
 ```bash
-npm run build        # compile once
-npm install -g .     # rebuild + reinstall globally
+pnpm build           # compile once
+pnpm add --global .  # rebuild + reinstall globally
 ```
 
 ## Commands
