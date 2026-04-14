@@ -41,6 +41,8 @@ pnpm add --global .  # rebuild + reinstall globally
 | `coupling`   | Files that always change together — hidden dependencies       |
 | `branches`   | Stale remote branches with no recent activity                 |
 | `first-week` | Commits from the first two weeks — original project intent    |
+| `hot`        | Files actively changing in the last 2 weeks + who's touching them |
+| `wip`        | WIP / hack / temp commits that made it to main — debt signals |
 | `all`        | Run everything                                                |
 
 ## Options
