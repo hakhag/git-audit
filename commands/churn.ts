@@ -1,5 +1,6 @@
 import chalk from 'chalk'
-import { git, header, makeTable, heatColor, isExcluded } from '../lib/git.js'
+import { git, isExcluded } from '../lib/git.js'
+import { header, makeTable, heatColor } from '../lib/display.js'
 
 interface ChurnOptions {
   since?: string

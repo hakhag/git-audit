@@ -1,5 +1,6 @@
 import chalk from 'chalk'
-import { git, header, warn, info } from '../lib/git.js'
+import { git } from '../lib/git.js'
+import { header, warn, info } from '../lib/display.js'
 
 export function velocity(): void {
   header('COMMIT VELOCITY', 'Monthly commit count — full project history')

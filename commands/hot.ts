@@ -1,5 +1,6 @@
 import chalk from 'chalk'
-import { git, header, makeTable, info, isExcluded } from '../lib/git.js'
+import { git, isExcluded } from '../lib/git.js'
+import { header, makeTable, info } from '../lib/display.js'
 
 interface HotOptions {
   since?: string

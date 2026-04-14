@@ -1,5 +1,6 @@
 import chalk from 'chalk'
-import { git, header, makeTable, info, warn } from '../lib/git.js'
+import { git } from '../lib/git.js'
+import { header, makeTable, info, warn } from '../lib/display.js'
 
 interface BranchesOptions {
   threshold?: string

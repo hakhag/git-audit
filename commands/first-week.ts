@@ -1,5 +1,6 @@
 import chalk from 'chalk'
-import { git, header, info } from '../lib/git.js'
+import { git } from '../lib/git.js'
+import { header, info } from '../lib/display.js'
 
 export function firstWeek(): void {
   header('ORIGIN STORY', 'Commits from the first two weeks of the project')

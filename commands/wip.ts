@@ -1,5 +1,6 @@
 import chalk from 'chalk'
-import { git, header, makeTable, warn, info } from '../lib/git.js'
+import { git } from '../lib/git.js'
+import { header, makeTable, warn, info } from '../lib/display.js'
 
 interface WipOptions {
   since?: string
