@@ -21,7 +21,7 @@ pnpm add --global .
 **Without installing (npx):**
 
 ```bash
-npx hakhag/git-audit all
+npx hakhag/git-audit
 ```
 
 Then run from any git repo:
