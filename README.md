@@ -6,22 +6,8 @@ A CLI that surfaces churn hotspots, bus factor, bug clusters, velocity trends, a
 
 ## Install
 
-**From GitHub (no clone needed):**
-
 ```bash
 pnpm add --global hakhag/git-audit
-```
-
-**From a local clone:**
-
-```bash
-pnpm add --global .
-```
-
-**Without installing (npx):**
-
-```bash
-npx hakhag/git-audit
 ```
 
 Then run from any git repo:
@@ -30,13 +16,26 @@ Then run from any git repo:
 git-audit
 ```
 
-## Development
-
-After editing any `.ts` file, rebuild before the changes take effect:
+**Or without installing:**
 
 ```bash
-pnpm build           # compile once
-pnpm add --global .  # rebuild + reinstall globally
+npx hakhag/git-audit churn
+```
+
+## Development
+
+```bash
+git clone https://github.com/hakhag/git-audit
+cd git-audit
+pnpm install
+pnpm add --global .   # build + install globally
+```
+
+After editing `.ts` files:
+
+```bash
+pnpm build            # recompile
+pnpm add --global .   # reinstall globally
 ```
 
 ## Commands
