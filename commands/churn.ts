@@ -29,7 +29,7 @@ export function churn({
     .sort((a, b) => b[1] - a[1])
     .slice(0, top)
 
-  const table = makeTable(['Commits', 'File'], [10, 70])
+  const table = makeTable(['Commits', 'File'], [10, 90])
   sorted.forEach(([file, count], i) => {
     const color = heatColor(i, sorted.length)
     table.push([color(String(count)), color(file)])

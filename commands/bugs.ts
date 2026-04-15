@@ -44,7 +44,7 @@ export function bugs({
     return
   }
 
-  const table = makeTable(['Bug Fixes', 'File'], [12, 56])
+  const table = makeTable(['Bug Fixes', 'File'], [12, 90])
   sorted.forEach(([file, count], i) => {
     const color = i < 3 ? chalk.red.bold : i < 8 ? chalk.yellow : chalk.white
     table.push([color(String(count)), color(file)])
