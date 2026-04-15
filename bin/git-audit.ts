@@ -180,23 +180,23 @@ program
   .option('--top <n>', 'Number of results per command', '15')
   .action((opts) => {
     assertGitRepo()
-    const t = parseInt(opts.top)
-    const s: string = opts.since
+    const top = parseInt(opts.top)
+    const since = opts.since
     console.log(chalk.bold.cyan('\n  ╔══════════════════════════════════╗'))
     console.log(chalk.bold.cyan('  ║       git-audit — full report    ║'))
     console.log(chalk.bold.cyan('  ╚══════════════════════════════════╝'))
-    churn({ since: s, top: t })
+    churn({ since, top })
     authors()
-    bugs({ since: s, top: t })
+    bugs({ since, top })
     velocity()
-    fires({ since: s })
-    age({ top: t })
-    ownership({ top: t })
-    coupling({ since: s, top: t })
+    fires({ since })
+    age({ top })
+    ownership({ top })
+    coupling({ since, top })
     branches()
     firstWeek()
-    hot({ since: s, top: t })
-    wip({ since: s })
+    hot({ since, top })
+    wip({ since })
   })
 
 // ── default: show help menu ────────────────────────────────────────────────
