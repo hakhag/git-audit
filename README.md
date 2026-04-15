@@ -18,6 +18,12 @@ pnpm add --global hakhag/git-audit
 pnpm add --global .
 ```
 
+**Without installing (npx):**
+
+```bash
+npx hakhag/git-audit churn
+```
+
 Then run from any git repo:
 
 ```bash
