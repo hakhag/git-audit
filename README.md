@@ -19,7 +19,7 @@ git-audit
 **Or without installing:**
 
 ```bash
-npx hakhag/git-audit churn
+npx hakhag/git-audit
 ```
 
 ## Development
