@@ -21,7 +21,7 @@ pnpm add --global .
 **Without installing (npx):**
 
 ```bash
-npx hakhag/git-audit churn
+npx hakhag/git-audit all
 ```
 
 Then run from any git repo:
@@ -41,21 +41,21 @@ pnpm add --global .  # rebuild + reinstall globally
 
 ## Commands
 
-| Command      | What it tells you                                             |
-| ------------ | ------------------------------------------------------------- |
-| `churn`      | Top most-changed files — the ones people warn you about       |
-| `authors`    | Contributor ranking + bus factor warnings                     |
-| `bugs`       | Files most touched in fix/bug commits                         |
-| `velocity`   | Monthly commit bar chart — is the team accelerating or dying? |
-| `fires`      | Revert / hotfix / emergency commit frequency                  |
-| `age`        | Files not touched in 1+ year — dead or forgotten code         |
-| `ownership`  | Per-file blame ownership of top churned files                 |
-| `coupling`   | Files that always change together — hidden dependencies       |
-| `branches`   | Stale remote branches with no recent activity                 |
-| `first-week` | Commits from the first two weeks — original project intent    |
+| Command      | What it tells you                                                 |
+| ------------ | ----------------------------------------------------------------- |
+| `churn`      | Top most-changed files — the ones people warn you about           |
+| `authors`    | Contributor ranking + bus factor warnings                         |
+| `bugs`       | Files most touched in fix/bug commits                             |
+| `velocity`   | Monthly commit bar chart — is the team accelerating or dying?     |
+| `fires`      | Revert / hotfix / emergency commit frequency                      |
+| `age`        | Files not touched in 1+ year — dead or forgotten code             |
+| `ownership`  | Per-file blame ownership of top churned files                     |
+| `coupling`   | Files that always change together — hidden dependencies           |
+| `branches`   | Stale remote branches with no recent activity                     |
+| `first-week` | Commits from the first two weeks — original project intent        |
 | `hot`        | Files actively changing in the last 2 weeks + who's touching them |
-| `wip`        | WIP / hack / temp commits that made it to main — debt signals |
-| `all`        | Run everything                                                |
+| `wip`        | WIP / hack / temp commits that made it to main — debt signals     |
+| `all`        | Run everything                                                    |
 
 ## Options
 
