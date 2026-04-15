@@ -17,7 +17,7 @@ export function churn({ since = '1 year ago', top = 20, } = {}) {
     const sorted = Object.entries(counts)
         .sort((a, b) => b[1] - a[1])
         .slice(0, top);
-    const table = makeTable(['Commits', 'File'], [10, 70]);
+    const table = makeTable(['Commits', 'File'], [10, 90]);
     sorted.forEach(([file, count], i) => {
         const color = heatColor(i, sorted.length);
         table.push([color(String(count)), color(file)]);
