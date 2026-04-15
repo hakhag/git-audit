@@ -11,7 +11,7 @@ export function firstWeek() {
     const start = new Date(firstCommit);
     const end = new Date(start.getTime() + 14 * 24 * 60 * 60 * 1000);
     const endStr = end.toISOString().split('T')[0];
-    const raw = git(`log --reverse --format="%ad %s" --date=format:"%Y-%m-%d" --after="${firstCommit}" --before="${endStr}"`);
+    const raw = git(`log --reverse --format="%ad|%an|%s" --date=format:"%Y-%m-%d" --after="${firstCommit}" --before="${endStr}"`);
     const firstFull = git(`log --reverse --format="%ad %an: %s" --date=format:"%Y-%m-%d" | head -1`);
     console.log();
     if (firstFull) {
@@ -26,8 +26,9 @@ export function firstWeek() {
     }
     console.log(chalk.bold.cyan('  First two weeks of commits:'));
     for (const line of raw.split('\n').filter(Boolean).slice(0, 20)) {
-        const [date, ...rest] = line.split(' ');
-        console.log(`  ${chalk.dim(date)}  ${chalk.white(rest.join(' '))}`);
+        const [date, author, ...rest] = line.split('|');
+        const subject = rest.join('|');
+        console.log(`  ${chalk.dim(date)}  ${chalk.cyan(author)}  ${chalk.white(subject)}`);
     }
     console.log();
     info(`This shows the original intent and tech choices made under pressure.`);
